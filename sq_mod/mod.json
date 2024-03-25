@@ -1,0 +1,23 @@
+{
+  "Name": "ServerChat Monitor",
+  "Description": "Monitor the chat contents and other information in a TTF2 Server, and send it to remote/local application server.",
+  "Authors": ["KKoishi_", "Satori_KKoishi"],
+  "LoadPriority": 1,
+  "RequiredOnClient": false,
+  "Scripts": [
+    {
+      "Path": "server_chat_monitor.nut",
+      "RunOn": "SERVER && MP",
+      "ServerCallback": {
+        "After": "server_chat_monitor_init"
+      }
+    },
+    {
+      "Path": "net/_sqhttp_utils.nut",
+      "RunOn": "SERVER && MP",
+      "ServerCallback": {
+        "After": "sqhttp_utils_init"
+      }
+    }
+  ]
+}

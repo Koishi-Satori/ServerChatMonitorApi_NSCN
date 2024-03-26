@@ -48,7 +48,7 @@ class HttpServer(private val port: Int) : Runnable {
                 if (it.isSuccess)
                     println("bind port success: $port")
                 else
-                    println("bind port failed.")
+                    println("bind port failed: $port")
             }
             println("success bootstrap server.")
             future.channel().closeFuture().sync()

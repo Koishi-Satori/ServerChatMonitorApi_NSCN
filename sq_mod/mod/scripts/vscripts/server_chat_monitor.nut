@@ -10,7 +10,9 @@ const string REMOTE_SERVER_GET_ENDFIX = "heart_beat"
 //string functionref(entity) playerDataFunc
 
 void function server_chat_monitor_init() {
+    #if SERVER
     AddCallback_OnReceivedSayTextMessage(server_chat_monitor_impl)
+    #endif
 
     // TODO: read remote server heart beat
 }

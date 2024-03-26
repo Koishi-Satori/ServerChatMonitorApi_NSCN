@@ -1,5 +1,5 @@
 plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.5.0"
 }
-rootProject.name = "Staori_KKoishi-ServerChatDetect"
+rootProject.name = "Satori_KKoishi-ServerChatDetect"
 

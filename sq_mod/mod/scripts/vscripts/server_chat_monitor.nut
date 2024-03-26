@@ -1,10 +1,11 @@
 untyped
 global function server_chat_monitor_init
 
-const string REMOTE_SERVER_URL = "127.0.0.1"
-const string REMOTE_SERVER_PORT = "5114"
-const string REMOTE_SERVER_POST_ENDFIX = "new_data"
-const string REMOTE_SERVER_GET_ENDFIX = "heart_beat"
+string REMOTE_SERVER_URL = "127.0.0.1"
+string REMOTE_SERVER_PORT = "5114"
+string REMOTE_SERVER_POST_ENDFIX = "new_data"
+string REMOTE_SERVER_GET_ENDFIX = "heart_beat"
+string LOCAL_SERVER_ID = "INVALID"
 
 // TODO: use this to get custom player data.
 //string functionref(entity) playerDataFunc
@@ -15,7 +16,18 @@ void function server_chat_monitor_init() {
     #endif
 }
 
+void function server_chat_monitor_loadConvars() {
+    REMOTE_SERVER_URL = GetConVarString("REMOTE_SERVER_URL")
+    REMOTE_SERVER_PORT = GetConVarString("REMOTE_SERVER_PORT")
+    REMOTE_SERVER_POST_ENDFIX = GetConVarString("REMOTE_SERVER_POST_ENDFIX")
+    REMOTE_SERVER_GET_ENDFIX = GetConVarString("REMOTE_SERVER_GET_ENDFIX")
+    LOCAL_SERVER_ID = GetConVarString("LOCAL_SERVER_ID")
+}
+
 ClServer_MessageStruct function server_chat_monitor_impl(ClServer_MessageStruct message) {
+    server_chat_monitor_loadConvars()
+    if (LOCAL_SERVER_ID == "INVALID")
+        return message
     entity player = message.player
     string content = message.message
     string playerName = player.GetPlayerName()
@@ -25,6 +37,7 @@ ClServer_MessageStruct function server_chat_monitor_impl(ClServer_MessageStruct 
     data["chat_sender"] <- playerName
     data["chat_message"] <- content
     data["chat_time"] <- server_chat_monitor_GetFormattedTime()
+    data["chat_server"] <- LOCAL_SERVER_ID
 
 
     // send POST response

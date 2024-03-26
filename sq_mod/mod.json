@@ -4,6 +4,33 @@
   "Authors": ["KKoishi_", "Satori_KKoishi"],
   "LoadPriority": 1,
   "RequiredOnClient": false,
+  "ConVars": [
+    {
+      "Name": "REMOTE_SERVER_URL",
+      "DefaultValue": "127.0.0.1",
+      "HelpString": "The remote/local monitor backend server URL, u can use ip or http URL."
+    },
+    {
+      "Name": "REMOTE_SERVER_PORT",
+      "DefaultValue": "5114",
+      "HelpString": "The port which remote/local monitor backend server binds."
+    },
+    {
+      "Name": "REMOTE_SERVER_POST_ENDFIX",
+      "DefaultValue": "new_data",
+      "HelpString": "The URL end-fix used to send POST request to the remote/local monitor backend server. DO NOT modify it unless you know how it works."
+    },
+    {
+      "Name": "REMOTE_SERVER_GET_ENDFIX",
+      "DefaultValue": "UNUSED",
+      "HelpString": "Unused."
+    },
+    {
+      "Name": "LOCAL_SERVER_ID",
+      "DefaultValue": "INVALID",
+      "HelpString": "Replace this with your server's ONLY id, which will be used to differ the different servers."
+    }
+  ],
   "Scripts": [
     {
       "Path": "server_chat_monitor.nut",

@@ -1,5 +1,8 @@
 package top.kkoishi.scmonitor.api
 
+/**
+ * A server chat.
+ */
 typealias ServerChat = Pair<ServerChats.Player, ServerChats.Message>
 
 object ServerChats {
@@ -23,7 +26,10 @@ object ServerChats {
         }
     }
 
-    data class Message(val content: String, val timeStamp: String) {
+    /**
+     * The chat message.
+     */
+    data class Message(val content: String, val timeStamp: String, val sourceServerID: String = "UNKNOWN") {
         override fun toString(): String {
             return "[$timeStamp] $content"
         }
@@ -66,8 +72,12 @@ object ServerChats {
         val playerName = data["chat_sender"]
         val content = data["chat_message"]
         val time = data["chat_time"]
+        val server = data["chat_server"]
         if (playerName == null || content == null || time == null)
             throw RuntimeException("find empty fields.")
-        return Player(playerName, emptyArray()) to Message(content, time)
+        return if (server != null)
+            Player(playerName, emptyArray()) to Message(content, time, server)
+        else
+            Player(playerName, emptyArray()) to Message(content, time)
     }
 }

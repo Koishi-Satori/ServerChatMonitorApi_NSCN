@@ -1,6 +1,6 @@
 package top.kkoishi.scmonitor.api
 
-typealias ServerChat = Pair<ServerChats.Player, String>
+typealias ServerChat = Pair<ServerChats.Player, ServerChats.Message>
 
 object ServerChats {
     data class Player(val name: String, val externalData: Array<Any>) {
@@ -20,6 +20,12 @@ object ServerChats {
             var result = name.hashCode()
             result = 31 * result + externalData.contentHashCode()
             return result
+        }
+    }
+
+    data class Message(val content: String, val timeStamp: String) {
+        override fun toString(): String {
+            return "[$timeStamp] $content"
         }
     }
 
@@ -59,8 +65,9 @@ object ServerChats {
     fun buildServerChat(data: Map<String, String>): ServerChat {
         val playerName = data["chat_sender"]
         val content = data["chat_message"]
-        if (playerName == null || content == null)
+        val time = data["chat_time"]
+        if (playerName == null || content == null || time == null)
             throw RuntimeException("find empty fields.")
-        return Player(playerName, emptyArray()) to content
+        return Player(playerName, emptyArray()) to Message(content, time)
     }
 }

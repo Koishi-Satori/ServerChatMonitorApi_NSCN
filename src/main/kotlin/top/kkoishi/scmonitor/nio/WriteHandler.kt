@@ -10,7 +10,7 @@ import top.kkoishi.scmonitor.api.ServerChats
 import java.io.IOException
 import java.lang.Exception
 
-class WriteHandler : HttpRequestHandler() {
+object WriteHandler : HttpRequestHandler() {
     override fun readHttpRequest(
         ctx: ChannelHandlerContext,
         msg: HttpRequest

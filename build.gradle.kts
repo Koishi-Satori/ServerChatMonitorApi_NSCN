@@ -16,6 +16,7 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test")
     implementation("io.netty", "netty-all", "4.1.10.Final")
     implementation("com.google.code.gson:gson:2.10.1")
+    api("net.mamoe", "mirai-core", "2.16.0")
 }
 
 tasks.test {
@@ -44,6 +45,6 @@ task("northstar.mod.rSquirrel") {
             this.copyRecursively(modDir, true)
         }
 }
-kotlin {
-    jvmToolchain(17)
-}
+//kotlin {
+//    jvmToolchain(17)
+//}

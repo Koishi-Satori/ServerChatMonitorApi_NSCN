@@ -1,0 +1,65 @@
+.table-container-outer {
+    grid-area: table;
+    overflow: auto;
+    position: relative;
+    margin: 0 1rem 1rem 1rem;
+}
+table {
+    width: 100%;
+    border-spacing: 0;
+    text-align: center
+}
+table tr {
+    height: 2rem;
+}
+table tr:nth-child(even) td, table th {
+    background: #9d4f4f;
+}
+table tr:nth-child(odd) td {
+    background: #8d3c3c;
+}
+table tr:hover td, .server-selected td {
+    background: #d38484 !important;
+}
+table td:not(:first-child), table th:not(:first-child) {
+    padding: 0.5rem 0.8rem;
+    vertical-align: top;
+}
+table th {
+    cursor: pointer;
+    position: sticky;
+    top: 0;
+    text-align: left;
+    white-space: nowrap;
+    user-select: none;
+}
+table tr:not(.server-selected) td {
+    cursor: pointer;
+    user-select: none;
+}
+table th:hover {
+    background: #37405D;
+}
+table td:first-child, th:first-child {
+    text-align: center;
+}
+table td:not(:last-child), table th:not(:last-child) {
+    border-right: solid #6262627a 2px;
+}
+table th svg {
+    position: absolute;
+    right: 0.5rem;
+    top: 0.5rem;
+    height: 1rem;
+}
+table th:not(.sort-down):not(.sort-up) svg {
+    display: none;
+}
+table th.sort-up svg {
+    transform: rotate(180deg);
+}
+table td svg {
+    height: 1rem;
+    margin: 0 auto;
+    display: block;
+}

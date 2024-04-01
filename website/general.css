@@ -1,0 +1,55 @@
+html, body {
+    height: 100vh;
+    overflow: hidden;
+}
+body {
+    margin: 0;
+    font-size: 0.75rem;
+    display: grid;
+    grid-template-areas:
+    'header header'
+    'filters table'
+    'stats table'
+    'footer table';
+    grid-template-columns: 1fr 5fr;
+    grid-template-rows: auto 1fr auto;
+    background: #813535;
+    color: white;
+}
+body, input {
+    font-family: Arial, sans-serif;
+}
+a {
+    color: inherit;
+    text-decoration: underline;
+}
+body > svg {
+    display: none;
+}
+
+header {
+    grid-area: header;
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    user-select: none;
+}
+header img {
+    height: 3rem;
+}
+header div {
+    margin-left: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+header h1 {
+    font-size: 1.2rem;
+    font-weight: normal;
+    margin: 0;
+
+}
+header p {
+    margin: 0;
+    opacity: 0.5;
+}

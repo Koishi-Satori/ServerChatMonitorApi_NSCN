@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="icons/koishi_d3_ver_icon.png">
+    <link href="table.css" rel="stylesheet">
+    <link href="general.css" rel="stylesheet">
+    <title>NorthStar Server Monitor Test</title>
+</head>
+<body id="main">
+<div class="table-container-outer">
+<div class="table-container-inner">
+<table>
+    <colgroup>
+        <col style="width: 15rem;"/>
+        <col style="width: 40rem"/>
+        <col style="width: 8rem"/>
+        <col style="width: 10rem"/>
+        <col style="width: 10rem"/>
+    </colgroup>
+    <thead>
+    <tr>
+        <th scope="col" role="button" id="server-header" data-by="server">服务器</th>
+        <th scope="col" role="button" id="massage-header" data-by="messages">消息内容</th>
+        <th scope="col" role="button" id="time-header" data-by="time">发送时间</th>
+        <th scope="col" role="button" id="sender-header" data-by="player_ID">玩家ID</th>
+    </tr>
+    </thead>
+    <tbody id="chat_contents"></tbody>
+</table>
+</div>
+</div>
+<script type="text/javascript" src="_load_resource.js"></script>
+</body>
+</html>

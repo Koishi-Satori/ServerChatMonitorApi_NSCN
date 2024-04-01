@@ -9,7 +9,12 @@ import io.netty.handler.codec.http.HttpObject
 import io.netty.handler.codec.http.HttpObjectAggregator
 import io.netty.handler.codec.http.HttpRequest
 import io.netty.handler.codec.http.HttpServerCodec
+import io.netty.handler.codec.http.cors.CorsConfigBuilder
+import io.netty.handler.codec.http.cors.CorsHandler
+import io.netty.handler.stream.ChunkedWriteHandler
 import top.kkoishi.scmonitor.nio.WriteHandler
+import top.kkoishi.scmonitor.website.WSChatsHandler
+import top.kkoishi.scmonitor.website.WSServersHandler
 import java.util.concurrent.ThreadFactory
 import java.util.concurrent.atomic.AtomicInteger
 
@@ -28,9 +33,19 @@ class HttpServer(private val port: Int) : Runnable {
                 .childOption(ChannelOption.SO_KEEPALIVE, true)
                 .childHandler(object : ChannelInitializer<SocketChannel>() {
                     override fun initChannel(ch: SocketChannel) {
-                        val handlers = arrayOf(WriteHandler())
-                        ch.pipeline().addLast(HttpServerCodec())
+                        val handlers = arrayOf(WriteHandler, WSChatsHandler, WSServersHandler)
+                        ch.pipeline()
+                            .addLast(
+                                CorsHandler(
+                                    CorsConfigBuilder.forAnyOrigin()
+                                        .allowNullOrigin()
+                                        .allowCredentials()
+                                        .build()
+                                )
+                            )
+                            .addLast(HttpServerCodec())
                             .addLast("aggregator", HttpObjectAggregator(1048576))
+                            .addLast(ChunkedWriteHandler())
                             .addLast(object : SimpleChannelInboundHandler<HttpObject>() {
                                 override fun channelRead0(ctx: ChannelHandlerContext, msg: HttpObject) {
                                     if (msg is HttpRequest) {

@@ -7,7 +7,7 @@ import io.netty.handler.codec.http.*
 
 abstract class HttpRequestHandler : SimpleChannelInboundHandler<HttpObject>() {
     public override fun channelRead0(ctx: ChannelHandlerContext, msg: HttpObject) {
-        println("read msg: ${msg.javaClass}")
+        println("${this.javaClass} read msg: ${msg.javaClass}")
         if (msg is HttpRequest) {
             if (verifyRequest(msg.uri(), msg.method())) {
                 println("verified.")
@@ -16,8 +16,9 @@ abstract class HttpRequestHandler : SimpleChannelInboundHandler<HttpObject>() {
                 println(status)
                 val response = DefaultFullHttpResponse(HttpVersion.HTTP_1_1, status, buf)
                 response.headers()
-                    .set(HttpHeaderNames.CONTENT_TYPE, "text/html;charsets=utf-8")
+                    .set(HttpHeaderNames.CONTENT_TYPE, "application/json")
                     .set(HttpHeaderNames.CONTENT_LENGTH, buf.readableBytes())
+                    .set(HttpHeaderNames.ACCESS_CONTROL_ALLOW_ORIGIN, "*")
                 ctx.writeAndFlush(response)
             } else
                 println("Not verified: ${msg.uri()}, ${msg.method()}")
